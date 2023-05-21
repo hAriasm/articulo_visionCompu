@@ -48,7 +48,10 @@
  {\usepackage[utf8]{inputenc}}           % switch to utf8
 
 \usepackage[USenglish]{babel}
-
+%\usepackage[spanish]{babel}
+\newenvironment{keywords}
+{\par\small\textbf{Keywords}}
+{\par}
 %
 % if BibLaTeX is used
 %
@@ -69,7 +72,7 @@
 
 \title{Learning Enriched Features for Fast Image Restoration and Enhancement\thanks{Work supported by ...}}
 
-\author{Fredy Abel Huanca Torres\thanks{Universidad Nacional San Agustín de Arequipa, fhuancat@unsa.edu.pe}, 
+\author{Fredy Abel Huanca Torres\thanks{Universidad Nacional San Agustín de Arequipa, fhuancat@unsa.edu.pe},
 		Jose Edison Perez Mamani\thanks{Universidad Nacional San Agustín de Arequipa, jperezma@unsa.edu.pe} y
 		Henrry Ivan Arias Mamani\thanks{Universidad Nacional San Agustín de Arequipa, hariasm@unsa.edu.pe}}
 	
@@ -77,11 +80,15 @@
 
 %
 \begin{abstract}
- This document provides information on several researchers in the field of computer vision and machine learning. It includes details on their educational background, professional experience, research interests, and notable achievements. Additionally, the document highlights a specific research project that focuses on image enhancement using a novel feature extraction model and a selective kernel network. The paper presents results that demonstrate the effectiveness of the proposed approach compared to previous methods. Overall, this document serves as a valuable resource for those interested in the field of computer vision and machine learning and provides insight into the work of prominent researchers in the field.
+Image restoration is an important task in surveillance, computational photography, medical imaging, and remote sensing. Recently, convolutional neural networks (CNNs) have achieved dramatic improvements over conventional approaches. This paper presents a novel architecture with the collective goals of maintaining spatially precise high-resolution representations and receiving contextual solid information from the low-resolution representations. The core of the approach is a multi-scale residual block containing several key elements: parallel multi-resolution convolution streams, information exchange across the multi-resolution streams, spatial and channel attention mechanisms, and attention-based multi-scale feature aggregation. Extensive experiments on real image benchmark datasets demonstrate that MIRNet achieves state-of-the-art results for various image processing tasks.
 \end{abstract}
 
+\begin{keywords}
+Image denoising, super-resolution, and image enhancement
+\end{keywords}
 
 \section{SUBMISSION OF PAPERS}
+
 Each author should submit the PDF file and all source
 files (text and figures) to enable the paper to be
 reconstructed if there are processing difficulties.
@@ -418,13 +425,7 @@ Please also check the list of common oversights which can be found in \textbf{AN
 
 \section{CONCLUSION}
 
-Any conclusions should be in a separate section directly preceding
-the \textbf{ACKNOWLEDGEMENTS}, \textbf{APPENDIX}, or \textbf{REFERENCES} sections, in that
-order.
-
-\section{ACKNOWLEDGEMENTS}
-Any acknowledgement should be in a separate section directly preceding
-the \textbf{REFERENCES} or \textbf{APPENDIX} section.
+La restauración de imágenes es una tarea importante en vigilancia, fotografía computacional, imágenes médicas y teledetección. Recientemente, las redes neuronales convolucionales (CNN) han logrado mejoras dramáticas sobre los enfoques convencionales. Este artículo presenta una arquitectura novedosa con los objetivos colectivos de mantener representaciones espacialmente precisas de alta resolución y recibir información contextual sólida de las representaciones de baja resolución. El núcleo del enfoque es un bloque residual multiescala que contiene varios elementos clave: flujos paralelos de convolución multiresolución, intercambio de información a través de los flujos multiresolución, mecanismos de atención espacial y de canales, y agregación de características multiescala basada en la atención. Extensos experimentos en conjuntos de datos de referencia de imágenes reales demuestran que MIRNet logra resultados de vanguardia para varias tareas de procesamiento de imágenes.
 
 
 \section{APPENDIX}
@@ -465,4 +466,4 @@ this should be the last section of the paper.
 
 %%%\include{annexes-A4}
 
-\end{document}
+\end{document} 
