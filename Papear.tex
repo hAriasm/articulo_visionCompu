@@ -91,10 +91,22 @@ Image denoising, super-resolution, and image enhancement
 
 La restauración de imágenes es una tarea importante en vigilancia, fotografía computacional, imágenes médicas y teledetección. Recientemente, las redes neuronales convolucionales (CNN) han logrado mejoras dramáticas sobre los enfoques convencionales. Este artículo presenta una arquitectura novedosa con los objetivos colectivos de mantener representaciones espacialmente precisas de alta resolución y recibir información contextual sólida de las representaciones de baja resolución. El núcleo del enfoque es un bloque residual multiescala que contiene varios elementos clave: flujos paralelos de convolución multiresolución, intercambio de información a través de los flujos multiresolución, mecanismos de atención espacial y de canales, y agregación de características multiescala basada en la atención. Extensos experimentos en conjuntos de datos de referencia de imágenes reales demuestran que MIRNet logra resultados de vanguardia para una variedad de tareas de procesamiento de imágenes.
 
-\section{MANUSCRIPTS}
-Templates are provided for recommended software and
-authors are advised to use them. Please consult the
-individual conference help pages if questions arise.
+
+\section{Trabajo Relacionados}
+analiza los métodos existentes basados en CNN para la restauración y mejora de imágenes. Compara dos diseños de arquitectura: un codificador-decodificador y procesamiento de características de alta resolución (escala única). La sección también destaca algunas limitaciones de los métodos basados en CNN existentes, como la pérdida de detalles espaciales finos en los modelos de codificador-decodificador.
+
+
+\textbf{Image denoising:} Mientras que las técnicas clásicas modifican los coeficientes de transformación o los píxeles de vecindad promedio, los algoritmos basados en la autosimilitud como NLM y BM3D se han mostrado muy prometedores para lograr una eliminación de ruido de alta calidad. Además, se han desarrollado numerosos algoritmos basados en parches que explotan la redundancia y la autosimilitud en las imágenes. Más recientemente, los enfoques basados en el aprendizaje profundo han logrado avances significativos en la eliminación de ruido de imágenes, superando los métodos tradicionales hechos a mano y brindando resultados favorables.
+
+\textbf{Super-resolution (SR): }En la era anterior al aprendizaje profundo, se desarrollaron una variedad de algoritmos de súper resolución (SR), aprovechando la teoría del muestreo, la interpolación guiada por bordes, las imágenes previas naturales, los ejemplos de parches y las representaciones dispersas. Sin embargo, con la llegada del aprendizaje profundo, ha habido un cambio significativo hacia enfoques de SR basados en datos que arrojan resultados superiores. Estos enfoques difieren en sus diseños de arquitectura, con métodos tempranos que generan directamente imágenes de alta resolución (HR) a partir de entradas de baja resolución (LR), mientras que las redes SR recientes emplean el marco de aprendizaje residual para capturar detalles de imágenes de alta frecuencia y agregarlos al Entrada LR para el resultado final súper resuelto. Otras redes SR incorporan el aprendizaje recursivo, la reconstrucción progresiva, las conexiones densas, los mecanismos de atención, el aprendizaje de múltiples ramas y las redes antagónicas generativas (GAN).
+
+\textbf{Image enhancement.}En el contexto de la mejora de imágenes, es común que las imágenes capturadas por las cámaras carezcan de viveza y contraste debido a varios factores, como condiciones de iluminación desfavorables y limitaciones de los dispositivos de la cámara. La ecualización de histogramas es un método ampliamente utilizado para la mejora de imágenes, pero a menudo conduce a resultados con una mejora insuficiente o excesiva. Inspirándose en la teoría Retinex, se han propuesto varios algoritmos de mejora que pretenden imitar la visión humana. Recientemente, las redes neuronales convolucionales (CNN) han demostrado un gran éxito al abordar los desafíos de mejora de imágenes tanto generales como con poca luz. Los enfoques notables incluyen redes inspiradas en Retinex, redes de codificador-decodificador y redes adversarias generativas (GAN). Estas técnicas han demostrado resultados prometedores en la mejora de la calidad de las imágenes.
+
+\section{Método propuesto}
+\section{Bloque residual multiescala}
+
+
+
 
 \subsection{General Layout}
 
