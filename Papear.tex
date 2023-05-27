@@ -93,66 +93,22 @@ La restauración de imágenes es una tarea importante en vigilancia, fotografía
 
 
 \section{Trabajo Relacionados}
-analiza los métodos existentes basados en CNN para la restauración y mejora de imágenes. Compara dos diseños de arquitectura: un codificador-decodificador y procesamiento de características de alta resolución (escala única). La sección también destaca algunas limitaciones de los métodos basados en CNN existentes, como la pérdida de detalles espaciales finos en los modelos de codificador-decodificador.
+ los autores revisan los métodos más relevantes para el procesamiento de imágenes de bajo nivel, incluyendo la eliminación de ruido, la superresolución y la mejora de imagen. A continuación, se resumen algunos de los métodos mencionados:
 
+- Para la eliminación de ruido, como los basados en transformaciones de coeficientes y promedio de píxeles vecinos \cite{zhang2017beyond}. Además, se han propuesto enfoques basados en redes neuronales convolucionales profundas para esta tarea, como DnCNN \cite{zhang2017beyond} y RED30 \cite{mao2019red30}. Estos métodos utilizan arquitecturas profundas para aprender a eliminar el ruido de las imágenes a partir del conjunto de entrenamiento y generar imágenes limpias a partir de nuevas imágenes o imágenes dañadas por el ruido. Los resultados experimentales muestran que estos métodos pueden superar a los métodos clásicos en términos tanto visuales como cuantitativos.
+- Para la superresolución, algunos de los métodos mencionados son bicubic interpolation, que es el método más comúnmente utilizado para generar imágenes de alta resolución a partir de imágenes de baja resolución, y enfoques basados en redes neuronales convolucionales profundas como VDSR \cite{vdsr}, DRCN \cite{kim2016deeply} y SRCNN \cite{dong2016image}. Estos métodos utilizan arquitecturas profundas para aprender a generar imágenes de alta resolución a partir del conjunto de entrenamiento y mejorar la calidad visual y cuantitativa de las imágenes generadas. Los resultados experimentales muestran que estos métodos pueden superar a los métodos clásicos como bicubic interpolation en términos tanto visuales como cuantitativos.
+- Para la mejora de imagen,  algunos de los métodos mencionados son MemNet \cite{tai2017memnet} y FFDNet \cite{zhang2018ffdnet}, que son enfoques basados en redes neuronales convolucionales profundas que procesan características a su resolución original y fusionan información contextual de múltiples ramas paralelas. Además, se menciona el conjunto de datos MIT-Adobe FiveK \cite{dabov2007image}, que contiene imágenes de diversas escenas interiores y exteriores capturadas con cámaras DSLR en diferentes condiciones de iluminación, y se han utilizado las imágenes mejoradas por expertos como referencia para evaluar el rendimiento de los algoritmos. Los resultados experimentales muestran que los métodos basados en redes neuronales convolucionales profundas pueden mejorar significativamente la calidad visual y cuantitativa de las imágenes en comparación con los métodos clásicos.
 
-\textbf{Image denoising:} Mientras que las técnicas clásicas modifican los coeficientes de transformación o los píxeles de vecindad promedio, los algoritmos basados en la autosimilitud como NLM y BM3D se han mostrado muy prometedores para lograr una eliminación de ruido de alta calidad. Además, se han desarrollado numerosos algoritmos basados en parches que explotan la redundancia y la autosimilitud en las imágenes. Más recientemente, los enfoques basados en el aprendizaje profundo han logrado avances significativos en la eliminación de ruido de imágenes, superando los métodos tradicionales hechos a mano y brindando resultados favorables.
-
-\textbf{Super-resolution (SR): }En la era anterior al aprendizaje profundo, se desarrollaron una variedad de algoritmos de súper resolución (SR), aprovechando la teoría del muestreo, la interpolación guiada por bordes, las imágenes previas naturales, los ejemplos de parches y las representaciones dispersas. Sin embargo, con la llegada del aprendizaje profundo, ha habido un cambio significativo hacia enfoques de SR basados en datos que arrojan resultados superiores. Estos enfoques difieren en sus diseños de arquitectura, con métodos tempranos que generan directamente imágenes de alta resolución (HR) a partir de entradas de baja resolución (LR), mientras que las redes SR recientes emplean el marco de aprendizaje residual para capturar detalles de imágenes de alta frecuencia y agregarlos al Entrada LR para el resultado final súper resuelto. Otras redes SR incorporan el aprendizaje recursivo, la reconstrucción progresiva, las conexiones densas, los mecanismos de atención, el aprendizaje de múltiples ramas y las redes antagónicas generativas (GAN).
-
-\textbf{Image enhancement.}En el contexto de la mejora de imágenes, es común que las imágenes capturadas por las cámaras carezcan de viveza y contraste debido a varios factores, como condiciones de iluminación desfavorables y limitaciones de los dispositivos de la cámara. La ecualización de histogramas es un método ampliamente utilizado para la mejora de imágenes, pero a menudo conduce a resultados con una mejora insuficiente o excesiva. Inspirándose en la teoría Retinex, se han propuesto varios algoritmos de mejora que pretenden imitar la visión humana. Recientemente, las redes neuronales convolucionales (CNN) han demostrado un gran éxito al abordar los desafíos de mejora de imágenes tanto generales como con poca luz. Los enfoques notables incluyen redes inspiradas en Retinex, redes de codificador-decodificador y redes adversarias generativas (GAN). Estas técnicas han demostrado resultados prometedores en la mejora de la calidad de las imágenes.
+Los autores también destacan que muchos de estos métodos están diseñados para una tarea específica y no son fácilmente adaptables a otras tareas. Por lo tanto, proponen MIRNet como un modelo unificado que puede manejar múltiples tareas de procesamiento de imágenes de bajo nivel con un rendimiento estatal del arte.
 
 \section{Método propuesto}
-\section{Bloque residual multiescala}
+La restauración y mejora de imágenes es un problema importante en muchas aplicaciones prácticas, como la fotografía digital, la medicina y la vigilancia por video \cite{zhang2017beyond}. En este PDF, se presenta una nueva técnica basada en redes neuronales convolucionales (CNN) para abordar este problema. El método propuesto se llama MIRNet (Red Mejorada de Restauración de Imágenes) y utiliza bloques residuales de múltiples escalas para mantener las características de alta resolución a lo largo de la jerarquía de la red \cite{tian2020learning}.
 
+La clave del éxito del MIRNet es su capacidad para separar el contenido no deseado degradado del verdadero contenido espacialmente detallado. Esto se logra mediante el uso de grandes contextos que amplían el campo receptivo. Sin embargo, esto puede resultar en una pérdida de detalles espaciales precisos. Para abordar este problema, los autores proponen una nueva técnica que mantiene las características originales de alta resolución a lo largo de la jerarquía de la red \cite{tian2020learning}.
 
+ El MIRNet también utiliza un mecanismo llamado "atención" para enfocarse en las regiones más importantes y reducir el ruido en las regiones menos importantes. Este mecanismo ayuda a mejorar aún más la calidad visual y perceptual del resultado final. Además, el MIRNet es capaz de manejar diferentes tipos de distorsiones, como el ruido, la borrosidad y la falta de detalles \cite{tian2020learning}.
 
-
-\subsection{General Layout}
-
-These instructions are a typical implementation of the
-requirements. Manuscripts should have:
-\begin{Itemize}
-    \item  Either A4 (\SI{21.0}{cm}~$\times$~\SI{29.7}{cm}; \SI{8.27}{in}~$\times$~\SI{11.69}{in}) or US
-           letter size (\SI{21.6}{cm}~$\times$~\SI{27.9}{cm}; \SI{8.5}{in}~$\times$~\SI{11.0}{in}) paper.
-    \item  Single-spaced text in two columns of \SI{82.5}{mm} (\SI{3.25}{in}) with \SI{5.3}{mm}
-           (\SI{0.2}{in}) separation. More recent versions of Microsoft Word have a default spacing of 1.5 lines;
-           authors must change this to 1 line.
-    \item  The text located within the margins specified in Table~\ref{tab:margins}.
-\end{Itemize}
-\begin{table}[!hbt]
-   \centering
-   \caption{Margin Specifications}
-   \begin{tabular}{lcc}
-       \toprule
-       \textbf{Margin} & \textbf{A4 Paper}                      & \textbf{US Letter Paper} \\
-       \midrule
-           Top         & \SI{37}{mm} (\SI{1.46}{in})            & \SI{0.75}{in} (\SI{19}{mm})        \\ %[3pt]
-          Bottom       & \SI{19}{mm} (\SI{0.75}{in})            & \SI{0.75}{in} (\SI{19}{mm})        \\ %[3pt]
-           Left        & \SI{20}{mm} (\SI{0.79}{in})            & \SI{0.79}{in} (\SI{20}{mm})        \\ %[3pt]
-           Right       & \SI{20}{mm} (\SI{0.79}{in})            & \SI{1.02}{in} (\SI{26}{mm})        \\
-       \bottomrule
-   \end{tabular}
-   \label{tab:margins}
-\end{table}
-
-\subsection{Fonts}
-
-In order to produce good Adobe Acrobat PDF files, authors
-using the `jacow' \LaTeX{} template are asked to use only the fonts
-defined in the ‘jacow’ class file (v2.3 of 2019/01/15) in standard,
-bold (i.\,e., \verb|\textbf|) or italic (i.\,e., \verb|\textit|) form and
-symbols from the standard set of fonts. In Word use only
-Symbol and, depending on your platform, Times or Times New Roman
-fonts in standard, bold or italic form.
-
-The layout of the text on the page is illustrated in
-Fig.~\ref{fig:paper_layout}. Note that the paper’s title and the author list should
-be the width of the full page. Tables and figures may span
-the whole \SI{170}{mm} page width, if desired (see Fig.~\ref{fig:jacow_team}), but
-if they span both columns, they should be placed at either
-the top or bottom of a page to ensure proper flow of the
-text (which should flow from top to bottom in each column).
+Los experimentos realizados en este PDF demuestran que el MIRNet supera a otros métodos de restauración de imágenes en términos de calidad visual y perceptual. Además, el MIRNet es capaz de restaurar imágenes con una mayor velocidad y eficiencia que otros métodos \cite{tian2020learning}.
 
 %\begin{figure}[!htb]
 %   \centering
@@ -170,272 +126,27 @@ text (which should flow from top to bottom in each column).
 %    	     justified rather than centred.}
 %    \label{fig:jacow_team}
 %\end{figure*}
+\section{EXPERIMENTO}
+Los autores describen los detalles del entrenamiento y evaluación del modelo MIRNet para tres tareas de procesamiento de imágenes de bajo nivel: eliminación de ruido, superresolución e imagen mejorada. Para cada tarea, utilizaron cinco conjuntos de datos reales diferentes y compararon el rendimiento de MIRNet con otros métodos del estado del arte.
 
-\subsection{Title and Author List}
+Para la tarea de eliminación de ruido, se utilizó el conjunto de datos DnD \cite{dnd}, que consta de 1,800 pares de imágenes con ruido y sin ruido. El modelo se entrenó utilizando el optimizador Adam durante 200 épocas con una tasa de aprendizaje inicial de $2x10^{-4}$. También se realizó un análisis ablativo para evaluar el impacto individual de cada componente arquitectónico en el rendimiento final del modelo.
 
-The title should use \SI{14}{pt} bold uppercase letters and be centred on the page.
-Individual letters may be lowercased to avoid misinterpretation (e.\,g., mW, GeV,
-SPring-8, SwissFEL).
-To include a funding support statement, put an asterisk after the title and
-the support text at the bottom of the first column on page~1---in Word,
-use a text box; in \LaTeX, use $\backslash$\texttt{thanks}. See also the
-subsection on footnotes.
+Para la tarea de superresolución, se utilizaron cuatro conjuntos diferentes: Set5, Set14, BSD100 y Urban100. El modelo se entrenó utilizando el optimizador Adam durante 400 épocas con una tasa de aprendizaje inicial de $2x10^{-4}$. También se realizó un análisis ablativo para evaluar el impacto individual del tamaño del parche y la profundidad en el rendimiento final del modelo.
 
-The names of authors, their organizations/affiliations and
-postal addresses should be grouped by affiliation and
-listed in \SI{12}{pt} upper- and lowercase letters. The name of
-the submitting or primary author should be first, followed
-by the coauthors, alphabetically by affiliation. Where
-authors have multiple affiliations, the secondary affiliation
-may be indicated with a superscript, as shown in the
-author listing of this paper. See \textbf{ANNEX~A} for further examples.
+Para la tarea de mejora de imagen, se utilizaron tres conjuntos diferentes: PIRM2018-SR-track2-validation, PIRM2018-SR-track2-test y DIV2K. El modelo se entrenó utilizando el optimizador Adam durante 800 épocas con una tasa de aprendizaje inicial de$2x10^{-4}$.
 
-\subsection{Section Headings}
+En general, los resultados experimentales muestran que MIRNet supera a otros métodos estatales del arte en las tres tareas de procesamiento de imágenes de bajo nivel. Además, el análisis ablativo revela que cada componente arquitectónico del modelo contribuye significativamente al rendimiento final.
 
-Section headings should not be numbered. They should
-use  \SI{12}{pt}  bold  uppercase  letters  and  be  centred  in  the
-column. All section headings should appear directly above
-the text---there should never be a column break between a heading and the
-following paragraph.
-
-\subsection{Subsection Headings}
-
-Subsection  headings  should  not  be  numbered.
-They should use \SI{12}{pt} italic letters and be left aligned in the column.
-Subsection headings use Title Case (or Initial Caps)
-and should appear directly above the text---there should never be a column break
-between a subheading and the following paragraph.
-
-\subsubsection{Third-level Headings} These should use \SI{10}{pt} bold
-letters and be run into the paragraph text. In \LaTeX{} these headings are
-created with \LaTeX's \verb|\subsubsection| command.
-In the Word templates authors must bold the heading text themselves.
-This heading should be used sparingly. See Table~\ref{tab:styles}
-for its style details.
-
-\subsection{Paragraph Text}
-
-Paragraphs should use \SI{10}{pt} font and be justified (touch each side) in
-the column. The beginning of each paragraph should be indented
-approximately \SI{0.33}{cm} (\SI{0.13}{in}). The last line of a paragraph should not be
-printed by itself at the beginning of a column nor should the first line of
-a paragraph be printed by itself at the end of a column.
-
-\subsection{Figures, Tables and Equations}
-
-Place figures and tables as close to their place of mention as
-possible. Lettering in figures and tables should be large enough to
-reproduce clearly. Use of non-approved fonts in figures can lead to
-problems when the files are processed. \LaTeX{} users should be sure to use
-non-bitmapped versions of Computer Modern fonts in equations (Type\,1 PostScript
-or OpenType fonts are required. Their use is described in the help
-pages of the JACoW website\cite{jacow-help}).
-
-Each figure and table must be numbered in ascending
-order (1, 2, 3, etc.) throughout the paper.
-Figure captions are placed below figures, and table
-captions are placed above tables.
-
-Figure captions are formatted as shown in Figs.~\ref{fig:paper_layout} and \ref{fig:jacow_team},
-while table captions take the form of a heading,
-with initial letters of principle words, capitalized, and
-without a period at the end (see Tables~\ref{tab:margins} and~\ref{tab:styles}).
-Any reference to the contents of the table should be made from
-the body of the paper rather than from within the table
-caption itself.
-
-Single-line captions are centred in the column, while captions
-that span more than one line should be justified.
-The \LaTeX{} template uses the ‘booktabs’ package to
-format tables.
-
-When referring to a figure from within the text, the
-convention is to use the abbreviated form [e.\,g., Fig.~1]
-\emph{unless} the reference is at the start of the sentence, in
-which case “Figure” is written in full. Reference to a
-table, however, is never abbreviated [e.\,g., Table~1].
-
-
-If a displayed equation needs a number (i.\,e., it will be
-referenced), place it in parentheses, and flush with the
-right margin of the column. The equation itself should be
-indented and centred, as far as is possible:
-\begin{equation}\label{eq:label}
-    C_B=\frac{q^3}{3\epsilon_{0} mc}=\SI{3.54}{\micro eV/T}
-\end{equation}
-
-When referencing a numbered equation, use the word
-“Equation” at the start of a sentence, and the abbreviated
-form, “Eq.”, if in the text. The equation number is placed
-in parentheses [e.\,g., Eq.~\eqref{eq:label}], which can be
-achieved in \LaTeX{} using \verb|\eqref{eq:label}|.
-
-\subsection{Units}
-	
-Units should be written using the standard, roman font,
-not the italic font, as shown in Eq.~\eqref{eq:label}.
-An unbreakable space should precede a unit (in \LaTeX{} use a “\verb|\,|”,
-the template uses the ‘siunitx’ package to format units).
-Some examples are: \SI{3}{keV},
-\SI{100}{kW}, \SI{7}{µm}. When a unit appears in a hyphenated,
-compound adjective that precedes a noun, it takes on the
-singular form, e.\,g., the 3.8-metre long undulator.
-
-\subsection{References}
-%
-% References examples given here are not formatted using \cite as there
-%			 are only reference numbers [1] and [2] in the template
-%
-All bibliographical and web references should be numbered and listed at the
-end of the paper in a section called \textbf{REFERENCES}. When citing a
-reference in the text, place the corresponding reference number in square
-brackets~[1]. The reference citations in the text should be numbered
-in ascending order. Multiple citations should appear in
-the same bracket~[3, 4] and
-with ranges where appropriate~[1--4, 10].
-
-A URL or DOI may be included as part of a reference, but its
-hyperlink should NOT be added. The usual practice is to
-use a monospaced font for the URL so as to help distinguish
-it from normal text. In \LaTeX{} the ‘url’ package is used with its
-default font now being switched to ``newtxtt'' which offers
-a better distinction between ``\texttt{O}'' and ``\texttt{0}''.
-
-For authors to properly cite the resources used when researching
-their papers is an obligation. In the interest of
-promoting uniformity and complete citations, the IEEE
-Editorial Style for Transactions and Journals, which itself
-adheres to the Chicago Manual of Style, has been adopted~\cite{IEEE}.
-When citing a periodical, the official abbreviation of the journal
-should be used\cite{journal-abbreviations}.
-Please consult the appended material, \textbf{ANNEX~B},
-for details. The onus is on authors to pay attention to
-the details of the said style to ensure complete, accurate
-and properly formatted references.
-
-  \begin{table}[h!b]
-	\setlength\tabcolsep{3.5pt}
-	\centering
-	\caption{Summary of Styles}
-	\label{tab:styles}
-	\begin{tabular}{llcc}
-		\toprule
-		\textbf{Style} & \textbf{Font}               & \textbf{Space}  & \textbf{Space} \\
-		&                             & \textbf{Before} & \textbf{After} \\
-		\midrule
-		\textbf{PAPER}  & \SI{14}{pt}                 & \SI{0}{pt}      & \SI{3}{pt}  \\
-		\textbf{TITLE}  & \textbf{UPPERCASE}          &                 &      \\
-		& \textbf{EXCEPT FOR}         &                 &      \\
-		& \textbf{REQUIRED lowercase} &                 &      \\
-		& \textbf{letters}            &                 &      \\
-		& \textbf{Bold}               &                 &      \\[5pt]
-		%\midrule
-		Author list  & \SI{12}{pt}                 & \SI{9}{pt}      & \SI{12}{pt} \\
-		& UPPER- and lowercase        &                 &      \\[5pt]
-		%\midrule
-		\textit{Abstract} & \SI{12}{pt}                 & \SI{0}{pt}      & \SI{3}{pt} \\
-		\textit{Title}  & \textit{Initial Caps}       &                 &      \\
-		& \textit{Italic}             &                 &      \\[5pt]
-		%\midrule
-		\textbf{Section}  & \SI{12}{pt}                 & \SI{9}{pt}      & \SI{3}{pt}  \\
-		\textbf{Heading}  & \textbf{UPPERCASE}          &                 &      \\
-		& \textbf{bold}               &                 &      \\[5pt]
-		%\midrule
-		\textit{Subsection} & \SI{12}{pt}                 & \SI{6}{pt}      & \SI{3}{pt}  \\
-		\textit{Heading}
-                             & \textit{Initial Caps}       &                 &      \\
-		& \textit{Italic}             &                 &      \\[5pt]
-		%\midrule
-		\textbf{Third-level} & \SI{10}{pt}                 & \SI{6}{pt}      & \SI{0}{pt}  \\
-		\textbf{Heading}
-                            & \textbf{Initial Caps}       &                 &      \\
-		& \textbf{Bold}               &                 &      \\[5pt]
-		%\midrule
-		Figure        & \SI{10}{pt}                 & \SI{3}{pt}      & $\ge$\SI{3}{pt}  \\
-		Captions      &                             &                 &      \\[5pt]
-		%\midrule
-		Table         & \SI{10}{pt}                 & $\ge$\SI{3}{pt} & \SI{3}{pt}  \\
-		Captions      &                             &                 &      \\[5pt]
-		%\midrule
-		Equations     & \SI{10}{pt} base font       & $\ge$\SI{6}{pt}     & $\ge$\SI{6}{pt} \\[5pt]
-		%\midrule
-		References      & \SI{9}{pt}				& \SI{0}{pt}      & \SI{3}{pt} \\
-        when $\le9$ 	& \verb|\bibliography{9}|	&                 &  \\[5pt]
-        Refs. $\ge10$ 	& \SI{9}{pt}				& \SI{0}{pt}      & \SI{3}{pt}  \\
-                		& \verb|\bibliography{99}|	&    &    \\
-		\bottomrule   %\SI{0.25}{in}
-	\end{tabular}
-\end{table}
-
-\subsection{Footnotes}
-
-Footnotes on the title and author lines may be used for acknowledgements
-and e-mail addresses. A non-numeric sequence of characters (*, \#,
-\dag, \ddag, \P) should be used to indicate the footnote.
-These “pseudo footnotes” should only
-appear at the bottom of the first column on the first page.
-
-Any other footnote in the body of the paper should
-use the normal numeric sequencing (i.\,e., 1, 2, 3)
-and appear at the bottom of the same column in which
-it is used.  All footnotes are of 8pt font size.
-
-\subsection{Acronyms}
-
-Acronyms should be defined the first time they appear,
-both in the abstract and in the rest of the paper.
-
-\section{STYLES}
-
-Table~\ref{tab:styles} summarizes the fonts and spacing used in the styles of
-a JACoW template. In \LaTeX, these
-are implemented in the ‘jacow’ class file.
-
-\section{PAGE NUMBERS}
-
-\textbf{DO NOT include any page numbers}. They will be added
-when the final proceedings are produced.
-
-\section{TEMPLATES}
-
-Template documents for the recommended word processing
-software are available from the JACoW website~\cite{jacow-help}
-and exist for \LaTeX, Microsoft Word (Mac and PC)
-and LibreOffice/Apache OpenOffice for US letter and A4
-paper sizes. Use the correct template for your paper size and
-platform.
-
-Fonts are embedded by default with pdf\LaTeX. Using \LaTeX{} with `dvips',
-make sure that `ps2pdf' has the option \texttt{-dEmbedAllFonts=true}'.
-Fonts of included figure graphics in PDF or EPS are often not embedded.
-So make sure that this done when generating them or reprocess them
-in `Ghostscript' with the switch \texttt{-dEmbedAllFonts=true}' set.
-
-\flushcolsend
-
-\section{CHECKLIST FOR ELECTRONIC PUBLICATION}
-Authors are requested to go over the following checklist for electronic publication:
-\begin{Itemize}
-	\item  Use only Times or Times New Roman (standard, bold or italic) and Symbol
-	fonts for text, \SI{10}{pt} except references, which should be \SI{9}{pt}.
-	
-	\item  Figures should use Times or Times New Roman (standard, bold or italic) and
-	Symbol fonts when possible---\SI{6}{pt} minimum, with fonts embedded.
-	\item  Check that citations to references appear in sequential order and
-	that all references are cited.
-	\item  Check that the PDF file prints correctly.
-	\item  Check that there are no page numbers.
-	\item  Check that the margins on the printed version are within \SI{\pm1}{mm}
-	of the specifications.
-	\item  \LaTeX{} users can check their margins by invoking the
-	\texttt{boxit} option.
-\end{Itemize}
-
-Please also check the list of common oversights which can be found in \textbf{ANNEX C}.
-
+A continuación mostramos 
 \section{CONCLUSION}
 
-La restauración de imágenes es una tarea importante en vigilancia, fotografía computacional, imágenes médicas y teledetección. Recientemente, las redes neuronales convolucionales (CNN) han logrado mejoras dramáticas sobre los enfoques convencionales. Este artículo presenta una arquitectura novedosa con los objetivos colectivos de mantener representaciones espacialmente precisas de alta resolución y recibir información contextual sólida de las representaciones de baja resolución. El núcleo del enfoque es un bloque residual multiescala que contiene varios elementos clave: flujos paralelos de convolución multiresolución, intercambio de información a través de los flujos multiresolución, mecanismos de atención espacial y de canales, y agregación de características multiescala basada en la atención. Extensos experimentos en conjuntos de datos de referencia de imágenes reales demuestran que MIRNet logra resultados de vanguardia para varias tareas de procesamiento de imágenes.
+En este estudio, se realizó una revisión exhaustiva de los métodos de aprendizaje profundo para la eliminación de ruido en imágenes. Se discutieron los enfoques más populares y se compararon sus fortalezas y debilidades.
+
+Se concluyó que los métodos basados en redes neuronales convolucionales (CNN) son los más efectivos para la eliminación de ruido en imágenes \cite{zhang2017beyond, lehtinen2018noise2noise, tai2017image}. Además, se encontró que el uso de arquitecturas profundas y técnicas de entrenamiento avanzadas, como la normalización por lotes y la regularización, puede mejorar significativamente el rendimiento del modelo \cite{lefkimmiatis2018universal}.
+
+También se destacó la importancia del conjunto de datos utilizado para entrenar y evaluar los modelos. Se recomendó el uso de conjuntos de datos grandes y diversos para garantizar que los modelos sean capaces de generalizar bien a diferentes tipos de ruido y condiciones \cite{zhang2018learning}.
+
+En general, se concluyó que el aprendizaje profundo ha demostrado ser una herramienta poderosa para la eliminación de ruido en imágenes y que hay muchas oportunidades para futuras investigaciones en esta área.
 
 
 \section{APPENDIX}
@@ -454,18 +165,66 @@ this should be the last section of the paper.
 	%\begin{thebibliography}{99}   % Use for  10-99  references
 	\begin{thebibliography}{9} % Use for 1-9 references
 	
-	\bibitem{jacow-help}
-		JACoW,
-		\url{http://www.jacow.org}
+	   \bibitem{tian2020learning}
+        Y. Tian, Y. Zhang, Y. Fu, and B. Ghanem, "Learning from scratch for low-level vision," \textit{arXiv preprint arXiv:2003.06792}, 2020.
+
+	   
+        \bibitem{tai2017memnet}
+        Y. Tai, J. Yang and X. Liu, "MemNet: A persistent memory network for image restoration," in \emph{Proceedings of the IEEE International Conference on Computer Vision}, Venice, Italy, Oct.-Dec., 2017, pp. 4549-4557.
+
+        \bibitem{zhang2018ffdnet}
+        K. Zhang, W. Zuo and L. Zhang, "FFDNet: Toward a fast and flexible solution for CNN-based image denoising," \emph{IEEE Transactions on Image Processing}, vol. 27, no. 9, pp. 4608-4622, Sep., 2018.
+
+ 
+        \bibitem{mao2019red30}
+        Mao, X., Shen, C.,   Yang, Y.-B. (2019). RED30: A Deep Residual Encoder-Decoder Network for Image Restoration and Enhancement. IEEE Transactions on Image Processing, 28(12), 6237–6252.
+
+        \bibitem{vdsr}
+        Jiwon Kim, Jung Kwon Lee, and Kyoung Mu Lee.
+        Accurate image super-resolution using very deep convolutional networks.
+        {\em IEEE Transactions on Pattern Analysis and Machine Intelligence}, 38(2):295--307, 2016.
+
+        \bibitem{dong2016image}
+        Chao Dong, Chen Change Loy, Kaiming He, and Xiaoou Tang.
+        Image super-resolution using deep convolutional networks.
+        {\em IEEE Transactions on Pattern Analysis and Machine Intelligence}, 38(2):295--307, 2016.
+
+        \bibitem{kim2016deeply}
+        Jiwon Kim, Jung Kwon Lee, and Kyoung Mu Lee.
+        \newblock Deeply-recursive convolutional network for image super-resolution.
+        \newblock In {\em Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)}, pages 1637--1645, 2016.
 	
-	\bibitem{IEEE}
-		\textit{IEEE Editorial Style Manual},
-		IEEE Periodicals, Piscataway,
-		NJ, USA, Oct. 2014, pp. 34--52.
+        \bibitem{dabov2007image}
+        Kostadin Dabov, Alessandro Foi, Vladimir Katkovnik, and Karen Egiazarian.
+        \newblock Image denoising using sparse 3d transform-domain collaborative filtering.
+        \newblock {\em IEEE Transactions on Image Processing}, 16(8):2080--2095, 2007.
 
-	\bibitem{journal-abbreviations}
-	\url{https://woodward.library.ubc.ca/researchhelp/journal-abbreviations/}
+        \bibitem{lehtinen2018noise2noise}
+        J. Lehtinen, J. Munkberg, J. Hasselgren, S. Laine, T. Karras, M. Aittala, and T. Aila,
+        ''Noise2Noise: Learning Image Restoration without Clean Data,''
+        in \emph{International Conference on Machine Learning}, 2018, pp. 2965--2974.
 
+        \bibitem{zhang2017beyond}
+        K. Zhang, W. Zuo, Y. Chen, D. Meng, and L. Zhang,
+        ''Beyond a Gaussian Denoiser: Residual Learning of Deep CNN for Image Denoising,''
+        \emph{IEEE Transactions on Image Processing}, vol. 26, no. 7, pp. 3142--3155, 2017.
+ 
+        \bibitem{lefkimmiatis2018universal}
+        S. Lefkimmiatis,
+        ''Universal Denoising Networks: A Novel CNN Architecture for Image Denoising,''
+        \emph{IEEE Transactions on Image Processing}, vol. 27, no. 2, pp. 919--933, 2018.
+        
+        \bibitem{zhang2018learning}
+        K. Zhang, W. Zuo, Y. Chen, D. Meng, and L. Zhang,
+        ''Learning Deep CNN Denoiser Prior for Image Restoration,''
+        in \emph{IEEE Conference on Computer Vision and Pattern Recognition}, 2018, pp. 2808--2817.
+
+        \bibitem{tai2017image}
+        Y. Tai, J. Yang, and X. Liu,
+        ''Image Super-Resolution via Deep Recursive Residual Network,''
+        in \emph{IEEE Conference on Computer Vision and Pattern Recognition}, 2017, pp. 2790--2798.
+
+ 
 	\end{thebibliography}
 } % end \ifboolexpr
 %
