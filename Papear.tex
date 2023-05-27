@@ -102,13 +102,22 @@ La restauración de imágenes es una tarea importante en vigilancia, fotografía
 Los autores también destacan que muchos de estos métodos están diseñados para una tarea específica y no son fácilmente adaptables a otras tareas. Por lo tanto, proponen MIRNet como un modelo unificado que puede manejar múltiples tareas de procesamiento de imágenes de bajo nivel con un rendimiento estatal del arte.
 
 \section{Método propuesto}
-La restauración y mejora de imágenes es un problema importante en muchas aplicaciones prácticas, como la fotografía digital, la medicina y la vigilancia por video \cite{zhang2017beyond}. En este PDF, se presenta una nueva técnica basada en redes neuronales convolucionales (CNN) para abordar este problema. El método propuesto se llama MIRNet (Red Mejorada de Restauración de Imágenes) y utiliza bloques residuales de múltiples escalas para mantener las características de alta resolución a lo largo de la jerarquía de la red \cite{tian2020learning}.
+La restauración y mejora de imágenes es un problema importante en muchas aplicaciones prácticas, como la fotografía digital, la medicina y la vigilancia por video \cite{zhang2017beyond}. En este articulo, se presenta una nueva técnica basada en redes neuronales convolucionales (CNN) para abordar este problema, en la figura ~\ref{fig:ejem_Entrenamiento}. El método propuesto se llama MIRNet (Red Mejorada de Restauración de Imágenes) y utiliza bloques residuales de múltiples escalas para mantener las características de alta resolución a lo largo de la jerarquía de la red \cite{tian2020learning}.
 
 La clave del éxito del MIRNet es su capacidad para separar el contenido no deseado degradado del verdadero contenido espacialmente detallado. Esto se logra mediante el uso de grandes contextos que amplían el campo receptivo. Sin embargo, esto puede resultar en una pérdida de detalles espaciales precisos. Para abordar este problema, los autores proponen una nueva técnica que mantiene las características originales de alta resolución a lo largo de la jerarquía de la red \cite{tian2020learning}.
 
+
+\begin{figure*}[!tbh]
+    \centering 
+    \includegraphics*[width=.7\textwidth]{ll-training-3}
+    \caption{Ejemplo de ejecución del entrenamiento.}
+    \label{fig:ejem_Entrenamiento}
+\end{figure*}
+
+
  El MIRNet también utiliza un mecanismo llamado "atención" para enfocarse en las regiones más importantes y reducir el ruido en las regiones menos importantes. Este mecanismo ayuda a mejorar aún más la calidad visual y perceptual del resultado final. Además, el MIRNet es capaz de manejar diferentes tipos de distorsiones, como el ruido, la borrosidad y la falta de detalles \cite{tian2020learning}.
 
-Los experimentos realizados en este PDF demuestran que el MIRNet supera a otros métodos de restauración de imágenes en términos de calidad visual y perceptual. Además, el MIRNet es capaz de restaurar imágenes con una mayor velocidad y eficiencia que otros métodos \cite{tian2020learning}.
+Los experimentos realizados en este articulo demuestran que el MIRNet supera a otros métodos de restauración de imágenes en términos de calidad visual y perceptual. Además, el MIRNet es capaz de restaurar imágenes con una mayor velocidad y eficiencia que otros métodos \cite{tian2020learning}.
 
 %\begin{figure}[!htb]
 %   \centering
@@ -137,7 +146,26 @@ Para la tarea de mejora de imagen, se utilizaron tres conjuntos diferentes: PIRM
 
 En general, los resultados experimentales muestran que MIRNet supera a otros métodos estatales del arte en las tres tareas de procesamiento de imágenes de bajo nivel. Además, el análisis ablativo revela que cada componente arquitectónico del modelo contribuye significativamente al rendimiento final.
 
-A continuación mostramos 
+En la figura ~\ref{fig:ejem_procesamiento}, se describe el proceso de experimentación del método propuesto para el procesamiento de imágenes utilizando una red neuronal profunda llamada MIRNet. Se entrenó la red neuronal utilizando un conjunto de datos de entrenamiento y se evaluó en cinco conjuntos de datos diferentes para tareas como denoising, super-resolución e imagen mejorada. Durante el entrenamiento, se utilizaron parches de tamaño 128x128 y operaciones de aumento de datos para mejorar la precisión del modelo. La tasa de aprendizaje disminuyó gradualmente durante el entrenamiento para mejorar la estabilidad del modelo. Los resultados muestran que el método propuesto supera a los métodos existentes en todos los conjuntos de datos evaluados y demuestra una buena capacidad generalización a través de diferentes conjuntos de datos.
+%\begin{figure}[!htb]
+%   \centering
+%   \includegraphics*[width=1\columnwidth]{ll-1}
+%   \caption{Layout of papers.}
+%   \label{fig:paper_layout}
+%\end{figure}
+
+\begin{figure*}[!tbh]
+    \centering
+    \includegraphics*[width=.7\textwidth]{ll-1}
+    \includegraphics*[width=.7\textwidth]{ll-2}
+    \includegraphics*[width=.7\textwidth]{ll-3}
+    \includegraphics*[width=.7\textwidth]{ll-4}
+    \includegraphics*[width=.7\textwidth]{ll-5}
+    \includegraphics*[width=.7\textwidth]{ll-6}
+    \caption{Ejemplo de ejecución de una imagen original hasta la imagen optimizada.}
+    \label{fig:ejem_procesamiento}
+\end{figure*}
+ 
 \section{CONCLUSION}
 
 En este estudio, se realizó una revisión exhaustiva de los métodos de aprendizaje profundo para la eliminación de ruido en imágenes. Se discutieron los enfoques más populares y se compararon sus fortalezas y debilidades.
@@ -149,33 +177,25 @@ También se destacó la importancia del conjunto de datos utilizado para entrena
 En general, se concluyó que el aprendizaje profundo ha demostrado ser una herramienta poderosa para la eliminación de ruido en imágenes y que hay muchas oportunidades para futuras investigaciones en esta área.
 
 
-\section{APPENDIX}
-Any appendix should be in a separate section directly preceding
-the \textbf{REFERENCES} section. If there is no \textbf{REFERENCES} section,
-this should be the last section of the paper.
-
 %
 % only for "biblatex"
 %
 \ifboolexpr{bool{jacowbiblatex}}%
 	{\printbibliography}%
-	{%
-	% "biblatex" is not used, go the "manual" way
-	
-	%\begin{thebibliography}{99}   % Use for  10-99  references
+	{                    
 	\begin{thebibliography}{9} % Use for 1-9 references
 	
 	   \bibitem{tian2020learning}
         Y. Tian, Y. Zhang, Y. Fu, and B. Ghanem, "Learning from scratch for low-level vision," \textit{arXiv preprint arXiv:2003.06792}, 2020.
 
-	   
+	
         \bibitem{tai2017memnet}
         Y. Tai, J. Yang and X. Liu, "MemNet: A persistent memory network for image restoration," in \emph{Proceedings of the IEEE International Conference on Computer Vision}, Venice, Italy, Oct.-Dec., 2017, pp. 4549-4557.
 
         \bibitem{zhang2018ffdnet}
         K. Zhang, W. Zuo and L. Zhang, "FFDNet: Toward a fast and flexible solution for CNN-based image denoising," \emph{IEEE Transactions on Image Processing}, vol. 27, no. 9, pp. 4608-4622, Sep., 2018.
 
- 
+
         \bibitem{mao2019red30}
         Mao, X., Shen, C.,   Yang, Y.-B. (2019). RED30: A Deep Residual Encoder-Decoder Network for Image Restoration and Enhancement. IEEE Transactions on Image Processing, 28(12), 6237–6252.
 
@@ -208,12 +228,12 @@ this should be the last section of the paper.
         K. Zhang, W. Zuo, Y. Chen, D. Meng, and L. Zhang,
         ''Beyond a Gaussian Denoiser: Residual Learning of Deep CNN for Image Denoising,''
         \emph{IEEE Transactions on Image Processing}, vol. 26, no. 7, pp. 3142--3155, 2017.
- 
+
         \bibitem{lefkimmiatis2018universal}
         S. Lefkimmiatis,
         ''Universal Denoising Networks: A Novel CNN Architecture for Image Denoising,''
         \emph{IEEE Transactions on Image Processing}, vol. 27, no. 2, pp. 919--933, 2018.
-        
+
         \bibitem{zhang2018learning}
         K. Zhang, W. Zuo, Y. Chen, D. Meng, and L. Zhang,
         ''Learning Deep CNN Denoiser Prior for Image Restoration,''
@@ -224,7 +244,7 @@ this should be the last section of the paper.
         ''Image Super-Resolution via Deep Recursive Residual Network,''
         in \emph{IEEE Conference on Computer Vision and Pattern Recognition}, 2017, pp. 2790--2798.
 
- 
+
 	\end{thebibliography}
 } % end \ifboolexpr
 %
