@@ -118,22 +118,12 @@ El MIRNet también utiliza un mecanismo llamado "atención" para enfocarse en la
 
 Los experimentos realizados en este articulo demuestran que el MIRNet supera a otros métodos de restauración de imágenes en términos de calidad visual y perceptual. Además, el MIRNet es capaz de restaurar imágenes con una mayor velocidad y eficiencia que otros métodos \cite{tian2020learning}.
 
-%\begin{figure}[!htb]
-%   \centering
-%   \includegraphics*[width=.7\columnwidth]{JACpic_mc}
-%   \caption{Layout of papers.}
-%   \label{fig:paper_layout}
-%\end{figure}
-
-%\begin{figure*}[!tbh]
-%    \centering
-%    \includegraphics*[width=\textwidth]{JACpic2}
-%
-%    \caption{Example of a full-width figure showing the JACoW Team at their annual
-%    	     meeting in December 2018. This figure has a multi-line caption that has to be
-%    	     justified rather than centred.}
-%    \label{fig:jacow_team}
-%\end{figure*}
+\begin{figure}[!h]
+    \centering
+    \includegraphics*[width=.5\textwidth]{ll-train-losses-ep}
+    \caption{"Train and validation PSNR over epochs" se refiere a la evolución de la relación señal-ruido pico (PSNR) en el conjunto de entrenamiento y validación a medida que el modelo se entrena durante varias épocas.}
+    \label{fig:ll_train_losses_ep}
+\end{figure}
 
 \begin{figure}[!h]
     \centering
@@ -148,7 +138,15 @@ Los experimentos realizados en este articulo demuestran que el MIRNet supera a o
 \end{figure}
 
 \section{EXPERIMENTO}
-Los autores describen los detalles del entrenamiento y evaluación del modelo MIRNet para tres tareas de procesamiento de imágenes de bajo nivel: eliminación de ruido, superresolución e imagen mejorada. Para cada tarea, utilizaron cinco conjuntos de datos reales diferentes y compararon el rendimiento de MIRNet con otros métodos del estado del arte.
+
+Los detalles del entrenamiento y evaluación del modelo MIRNet para tres tareas de procesamiento de imágenes de bajo nivel: eliminación de ruido, superresolución e imagen mejorada. Para cada tarea, utilizaron cinco conjuntos de datos reales diferentes y compararon el rendimiento de MIRNet con otros métodos del estado del arte. Considerar algunas posibles limitaciones del experimento se podrían incluir:
+ 
+\begin{itemize}
+  \item Tamaño del conjunto de datos: Si bien utilizamos un conjunto de datos amplio y diverso para entrenar nuestro modelo, es posible que no haya sido lo suficientemente grande o representativo como para capturar todas las variaciones posibles en las imágenes.
+  \item Sesgo del conjunto de datos: Es posible que el conjunto de datos utilizado para entrenar nuestro modelo tenga algún sesgo inherente, lo que podría afectar su capacidad para generalizar a nuevas imágenes.
+  \item Hiperparámetros: La elección de los hiperparámetros (como la tasa de aprendizaje y el tamaño del lote) puede tener un impacto significativo en el rendimiento del modelo. Es posible que no hayamos encontrado los mejores valores para estos hiperparámetros en nuestro experimento.
+  \item Evaluación: La evaluación del rendimiento del modelo puede ser difícil y subjetiva. Es posible que hayamos utilizado métricas inadecuadas o insuficientes para evaluar el rendimiento del modelo.
+\end{itemize}
 
 Para la tarea de eliminación de ruido, se utilizó el conjunto de datos DnD \cite{dnd}, que consta de 1,800 pares de imágenes con ruido y sin ruido. El modelo se entrenó utilizando el optimizador Adam durante 200 épocas con una tasa de aprendizaje inicial de $2x10^{-4}$. También se realizó un análisis ablativo para evaluar el impacto individual de cada componente arquitectónico en el rendimiento final del modelo.
 
@@ -165,8 +163,6 @@ En la figura ~\ref{fig:ejem_procesamiento}, se describe el proceso de experiment
 %   \caption{Layout of papers.}
 %   \label{fig:paper_layout}
 %\end{figure}
-
-
 
 \section{CONCLUSION}
 
