@@ -94,7 +94,7 @@ La restauración de imágenes es una tarea importante en vigilancia, fotografía
 \begin{figure*}[!h]
     \centering
     \includegraphics*[width=.9\textwidth]{entrenamiento}
-    \caption{Ejemplo de ejecución del entrenamiento.}
+    \caption{Ejemplo de ejecución del entrenamiento. La imagen muestra las 50 épocas }
     \label{fig:ejem_Entrenamiento}
 \end{figure*}
 
@@ -154,7 +154,7 @@ Para la tarea de eliminación de ruido, se utilizó el conjunto de datos DnD \ci
 
 Para la tarea de superresolución, se utilizaron cuatro conjuntos diferentes: Set5, Set14, BSD100 y Urban100. El modelo se entrenó utilizando el optimizador Adam durante 400 épocas con una tasa de aprendizaje inicial de $2x10^{-4}$. También se realizó un análisis ablativo para evaluar el impacto individual del tamaño del parche y la profundidad en el rendimiento final del modelo.
 
-Para la tarea de mejora de imagen, se utilizaron tres conjuntos diferentes: PIRM2018-SR-track2-validation, PIRM2018-SR-track2-test y DIV2K. El modelo se entrenó utilizando el optimizador Adam durante 800 épocas con una tasa de aprendizaje inicial de$2x10^{-4}$.
+Para la tarea de mejora de imagen, se utilizaron tres conjuntos diferentes: PIRM2018-SR-track2-validation, PIRM2018-SR-track2-test y DIV2K. El modelo se entrenó utilizando el optimizador Adam durante 800 épocas con una tasa de aprendizaje inicial de $2x10^{-4}$.
 
 En general, los resultados experimentales muestran que MIRNet supera a otros métodos estatales del arte en las tres tareas de procesamiento de imágenes de bajo nivel. Además, el análisis ablativo revela que cada componente arquitectónico del modelo contribuye significativamente al rendimiento final.
 
@@ -172,13 +172,13 @@ En la figura ~\ref{fig:ejem_procesamiento}, se describe el proceso de experiment
 
 En este estudio, se realizó una revisión exhaustiva de los métodos de aprendizaje profundo para la eliminación de ruido en imágenes. Se discutieron los enfoques más populares y se compararon sus fortalezas y debilidades.
 
-Se concluyó que los métodos basados en redes neuronales convolucionales (CNN) son los más efectivos para la eliminación de ruido en imágenes \cite{zhang2017beyond, lehtinen2018noise2noise, tai2017image}. Además, se encontró que el uso de arquitecturas profundas y técnicas de entrenamiento avanzadas, como la normalización por lotes y la regularización, puede mejorar significativamente el rendimiento del modelo \cite{lefkimmiatis2018universal}.
+Se concluyó que los métodos basados en redes neuronales convolucionales (CNN) son los más efectivos para la eliminación de ruido en imágenes \cite{zhang2017beyond, lehtinen2018noise2noise, tai2017image}. Además, se encontró que el uso de arquitecturas profundas y técnicas de entrenamiento avanzadas, como la normalización por lotes y la regularización, puede mejorar significativamente el rendimiento del modelo \cite{lefkimmiatis2018universal}. Sin embargo, aún hay desafíos importantes en este campo. Por ejemplo, la eliminación de ruido en imágenes con texturas finas y detalles complejos sigue siendo un problema difícil. Además, muchos métodos existentes requieren grandes cantidades de datos etiquetados para el entrenamiento del modelo, lo que puede ser costoso y limitar su aplicabilidad en situaciones donde los datos son escasos.
 
 También se destacó la importancia del conjunto de datos utilizado para entrenar y evaluar los modelos. Se recomendó el uso de conjuntos de datos grandes y diversos para garantizar que los modelos sean capaces de generalizar bien a diferentes tipos de ruido y condiciones \cite{zhang2018learning}.
 
 En general, se concluyó que el aprendizaje profundo ha demostrado ser una herramienta poderosa para la eliminación de ruido en imágenes y que hay muchas oportunidades para futuras investigaciones en esta área.
 
-
+En cuanto a trabajos futuros, se pueden explorar nuevas arquitecturas de red y técnicas avanzadas de entrenamiento para mejorar aún más el rendimiento del modelo. También se pueden investigar métodos para reducir la dependencia del modelo en grandes cantidades de datos etiquetados. Además, se pueden explorar aplicaciones prácticas para la eliminación de ruido en imágenes en campos como la medicina y la astronomía.
 %
 % only for "biblatex"
 %
@@ -246,7 +246,8 @@ En general, se concluyó que el aprendizaje profundo ha demostrado ser una herra
         ''Image Super-Resolution via Deep Recursive Residual Network,''
         in \emph{IEEE Conference on Computer Vision and Pattern Recognition}, 2017, pp. 2790--2798.
 
-
+        \bibitem{dnd}
+        Plötz, T., Roth, S.: Dnd: A challenging noisy image dataset. In: Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition Workshops. pp. 81–88 (2017)
 	\end{thebibliography}
 } % end \ifboolexpr
 %
