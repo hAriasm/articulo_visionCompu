@@ -91,6 +91,12 @@ Image denoising, super-resolution, and image enhancement
 
 La restauración de imágenes es una tarea importante en vigilancia, fotografía computacional, imágenes médicas y teledetección. Recientemente, las redes neuronales convolucionales (CNN) han logrado mejoras dramáticas sobre los enfoques convencionales. Este artículo presenta una arquitectura novedosa con los objetivos colectivos de mantener representaciones espacialmente precisas de alta resolución y recibir información contextual sólida de las representaciones de baja resolución. El núcleo del enfoque es un bloque residual multiescala que contiene varios elementos clave: flujos paralelos de convolución multiresolución, intercambio de información a través de los flujos multiresolución, mecanismos de atención espacial y de canales, y agregación de características multiescala basada en la atención. Extensos experimentos en conjuntos de datos de referencia de imágenes reales demuestran que MIRNet logra resultados de vanguardia para una variedad de tareas de procesamiento de imágenes.
 
+\begin{figure*}[!h]
+    \centering
+    \includegraphics*[width=.9\textwidth]{entrenamiento}
+    \caption{Ejemplo de ejecución del entrenamiento. La imagen muestra las 50 épocas }
+    \label{fig:ejem_Entrenamiento}
+\end{figure*}
 
 \section{Trabajo Relacionados}
  los autores revisan los métodos más relevantes para el procesamiento de imágenes de bajo nivel, incluyendo la eliminación de ruido, la superresolución y la mejora de imagen. A continuación, se resumen algunos de los métodos mencionados:
@@ -104,18 +110,11 @@ Los autores también destacan que muchos de estos métodos están diseñados par
 \section{Método propuesto}
 La restauración y mejora de imágenes es un problema importante en muchas aplicaciones prácticas, como la fotografía digital, la medicina y la vigilancia por video \cite{zhang2017beyond}. En este articulo, se presenta una nueva técnica basada en redes neuronales convolucionales (CNN) para abordar este problema, en la figura ~\ref{fig:ejem_Entrenamiento}. El método propuesto se llama MIRNet (Red Mejorada de Restauración de Imágenes) y utiliza bloques residuales de múltiples escalas para mantener las características de alta resolución a lo largo de la jerarquía de la red \cite{tian2020learning}.
 
+
 La clave del éxito del MIRNet es su capacidad para separar el contenido no deseado degradado del verdadero contenido espacialmente detallado. Esto se logra mediante el uso de grandes contextos que amplían el campo receptivo. Sin embargo, esto puede resultar en una pérdida de detalles espaciales precisos. Para abordar este problema, los autores proponen una nueva técnica que mantiene las características originales de alta resolución a lo largo de la jerarquía de la red \cite{tian2020learning}.
 
 
-\begin{figure*}[!tbh]
-    \centering 
-    \includegraphics*[width=.7\textwidth]{ll-training-3}
-    \caption{Ejemplo de ejecución del entrenamiento.}
-    \label{fig:ejem_Entrenamiento}
-\end{figure*}
-
-
- El MIRNet también utiliza un mecanismo llamado "atención" para enfocarse en las regiones más importantes y reducir el ruido en las regiones menos importantes. Este mecanismo ayuda a mejorar aún más la calidad visual y perceptual del resultado final. Además, el MIRNet es capaz de manejar diferentes tipos de distorsiones, como el ruido, la borrosidad y la falta de detalles \cite{tian2020learning}.
+El MIRNet también utiliza un mecanismo llamado "atención" para enfocarse en las regiones más importantes y reducir el ruido en las regiones menos importantes. Este mecanismo ayuda a mejorar aún más la calidad visual y perceptual del resultado final. Además, el MIRNet es capaz de manejar diferentes tipos de distorsiones, como el ruido, la borrosidad y la falta de detalles \cite{tian2020learning}.
 
 Los experimentos realizados en este articulo demuestran que el MIRNet supera a otros métodos de restauración de imágenes en términos de calidad visual y perceptual. Además, el MIRNet es capaz de restaurar imágenes con una mayor velocidad y eficiencia que otros métodos \cite{tian2020learning}.
 
@@ -135,6 +134,19 @@ Los experimentos realizados en este articulo demuestran que el MIRNet supera a o
 %    	     justified rather than centred.}
 %    \label{fig:jacow_team}
 %\end{figure*}
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics*[width=.5\textwidth]{ll-1}
+    \includegraphics*[width=.5\textwidth]{ll-2}
+    \includegraphics*[width=.5\textwidth]{ll-3}
+    \includegraphics*[width=.5\textwidth]{ll-4}
+    \includegraphics*[width=.5\textwidth]{ll-5}
+    \includegraphics*[width=.5\textwidth]{ll-6}
+    \caption{Ejemplo de ejecución de una imagen original hasta la imagen optimizada.}
+    \label{fig:ejem_procesamiento}
+\end{figure}
+
 \section{EXPERIMENTO}
 Los autores describen los detalles del entrenamiento y evaluación del modelo MIRNet para tres tareas de procesamiento de imágenes de bajo nivel: eliminación de ruido, superresolución e imagen mejorada. Para cada tarea, utilizaron cinco conjuntos de datos reales diferentes y compararon el rendimiento de MIRNet con otros métodos del estado del arte.
 
@@ -142,7 +154,7 @@ Para la tarea de eliminación de ruido, se utilizó el conjunto de datos DnD \ci
 
 Para la tarea de superresolución, se utilizaron cuatro conjuntos diferentes: Set5, Set14, BSD100 y Urban100. El modelo se entrenó utilizando el optimizador Adam durante 400 épocas con una tasa de aprendizaje inicial de $2x10^{-4}$. También se realizó un análisis ablativo para evaluar el impacto individual del tamaño del parche y la profundidad en el rendimiento final del modelo.
 
-Para la tarea de mejora de imagen, se utilizaron tres conjuntos diferentes: PIRM2018-SR-track2-validation, PIRM2018-SR-track2-test y DIV2K. El modelo se entrenó utilizando el optimizador Adam durante 800 épocas con una tasa de aprendizaje inicial de$2x10^{-4}$.
+Para la tarea de mejora de imagen, se utilizaron tres conjuntos diferentes: PIRM2018-SR-track2-validation, PIRM2018-SR-track2-test y DIV2K. El modelo se entrenó utilizando el optimizador Adam durante 800 épocas con una tasa de aprendizaje inicial de $2x10^{-4}$.
 
 En general, los resultados experimentales muestran que MIRNet supera a otros métodos estatales del arte en las tres tareas de procesamiento de imágenes de bajo nivel. Además, el análisis ablativo revela que cada componente arquitectónico del modelo contribuye significativamente al rendimiento final.
 
@@ -154,35 +166,25 @@ En la figura ~\ref{fig:ejem_procesamiento}, se describe el proceso de experiment
 %   \label{fig:paper_layout}
 %\end{figure}
 
-\begin{figure*}[!tbh]
-    \centering
-    \includegraphics*[width=.7\textwidth]{ll-1}
-    \includegraphics*[width=.7\textwidth]{ll-2}
-    \includegraphics*[width=.7\textwidth]{ll-3}
-    \includegraphics*[width=.7\textwidth]{ll-4}
-    \includegraphics*[width=.7\textwidth]{ll-5}
-    \includegraphics*[width=.7\textwidth]{ll-6}
-    \caption{Ejemplo de ejecución de una imagen original hasta la imagen optimizada.}
-    \label{fig:ejem_procesamiento}
-\end{figure*}
- 
+
+
 \section{CONCLUSION}
 
 En este estudio, se realizó una revisión exhaustiva de los métodos de aprendizaje profundo para la eliminación de ruido en imágenes. Se discutieron los enfoques más populares y se compararon sus fortalezas y debilidades.
 
-Se concluyó que los métodos basados en redes neuronales convolucionales (CNN) son los más efectivos para la eliminación de ruido en imágenes \cite{zhang2017beyond, lehtinen2018noise2noise, tai2017image}. Además, se encontró que el uso de arquitecturas profundas y técnicas de entrenamiento avanzadas, como la normalización por lotes y la regularización, puede mejorar significativamente el rendimiento del modelo \cite{lefkimmiatis2018universal}.
+Se concluyó que los métodos basados en redes neuronales convolucionales (CNN) son los más efectivos para la eliminación de ruido en imágenes \cite{zhang2017beyond, lehtinen2018noise2noise, tai2017image}. Además, se encontró que el uso de arquitecturas profundas y técnicas de entrenamiento avanzadas, como la normalización por lotes y la regularización, puede mejorar significativamente el rendimiento del modelo \cite{lefkimmiatis2018universal}. Sin embargo, aún hay desafíos importantes en este campo. Por ejemplo, la eliminación de ruido en imágenes con texturas finas y detalles complejos sigue siendo un problema difícil. Además, muchos métodos existentes requieren grandes cantidades de datos etiquetados para el entrenamiento del modelo, lo que puede ser costoso y limitar su aplicabilidad en situaciones donde los datos son escasos.
 
 También se destacó la importancia del conjunto de datos utilizado para entrenar y evaluar los modelos. Se recomendó el uso de conjuntos de datos grandes y diversos para garantizar que los modelos sean capaces de generalizar bien a diferentes tipos de ruido y condiciones \cite{zhang2018learning}.
 
 En general, se concluyó que el aprendizaje profundo ha demostrado ser una herramienta poderosa para la eliminación de ruido en imágenes y que hay muchas oportunidades para futuras investigaciones en esta área.
 
-
+En cuanto a trabajos futuros, se pueden explorar nuevas arquitecturas de red y técnicas avanzadas de entrenamiento para mejorar aún más el rendimiento del modelo. También se pueden investigar métodos para reducir la dependencia del modelo en grandes cantidades de datos etiquetados. Además, se pueden explorar aplicaciones prácticas para la eliminación de ruido en imágenes en campos como la medicina y la astronomía.
 %
 % only for "biblatex"
 %
 \ifboolexpr{bool{jacowbiblatex}}%
 	{\printbibliography}%
-	{                    
+	{
 	\begin{thebibliography}{9} % Use for 1-9 references
 	
 	   \bibitem{tian2020learning}
@@ -244,7 +246,8 @@ En general, se concluyó que el aprendizaje profundo ha demostrado ser una herra
         ''Image Super-Resolution via Deep Recursive Residual Network,''
         in \emph{IEEE Conference on Computer Vision and Pattern Recognition}, 2017, pp. 2790--2798.
 
-
+        \bibitem{dnd}
+        Plötz, T., Roth, S.: Dnd: A challenging noisy image dataset. In: Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition Workshops. pp. 81–88 (2017)
 	\end{thebibliography}
 } % end \ifboolexpr
 %
