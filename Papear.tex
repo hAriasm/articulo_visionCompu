@@ -94,7 +94,7 @@ La restauración de imágenes es una tarea importante en vigilancia, fotografía
 \begin{figure*}[!h]
     \centering
     \includegraphics*[width=.9\textwidth]{entrenamiento}
-    \caption{Ejemplo de ejecución del entrenamiento. La imagen muestra las 50 épocas }
+    \caption{Ejemplo de ejecución del entrenamiento. La figura muestra las 50 épocas }
     \label{fig:ejem_Entrenamiento}
 \end{figure*}
 
@@ -105,11 +105,23 @@ La restauración de imágenes es una tarea importante en vigilancia, fotografía
 - Para la superresolución, algunos de los métodos mencionados son bicubic interpolation, que es el método más comúnmente utilizado para generar imágenes de alta resolución a partir de imágenes de baja resolución, y enfoques basados en redes neuronales convolucionales profundas como VDSR \cite{vdsr}, DRCN \cite{kim2016deeply} y SRCNN \cite{dong2016image}. Estos métodos utilizan arquitecturas profundas para aprender a generar imágenes de alta resolución a partir del conjunto de entrenamiento y mejorar la calidad visual y cuantitativa de las imágenes generadas. Los resultados experimentales muestran que estos métodos pueden superar a los métodos clásicos como bicubic interpolation en términos tanto visuales como cuantitativos.
 - Para la mejora de imagen,  algunos de los métodos mencionados son MemNet \cite{tai2017memnet} y FFDNet \cite{zhang2018ffdnet}, que son enfoques basados en redes neuronales convolucionales profundas que procesan características a su resolución original y fusionan información contextual de múltiples ramas paralelas. Además, se menciona el conjunto de datos MIT-Adobe FiveK \cite{dabov2007image}, que contiene imágenes de diversas escenas interiores y exteriores capturadas con cámaras DSLR en diferentes condiciones de iluminación, y se han utilizado las imágenes mejoradas por expertos como referencia para evaluar el rendimiento de los algoritmos. Los resultados experimentales muestran que los métodos basados en redes neuronales convolucionales profundas pueden mejorar significativamente la calidad visual y cuantitativa de las imágenes en comparación con los métodos clásicos.
 
-Los autores también destacan que muchos de estos métodos están diseñados para una tarea específica y no son fácilmente adaptables a otras tareas. Por lo tanto, proponen MIRNet como un modelo unificado que puede manejar múltiples tareas de procesamiento de imágenes de bajo nivel con un rendimiento estatal del arte.
+Los autores también destacan que muchos de estos métodos están diseñados para una tarea específica y no son fácilmente adaptables a otras tareas. Por lo tanto, proponen MIRNet como un modelo unificado que puede manejar múltiples tareas de procesamiento de imágenes de bajo nivel con un rendimiento estado del arte.
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics*[width=.5\textwidth]{arquitectura}
+    \caption{"Train and validation PSNR over epochs".}
+    \label{fig:arquitectura}
+\end{figure}
+Se describe la arquitectura utilizada en el modelo propuesto. El modelo utiliza una arquitectura de red neuronal profunda basada en bloques residuales (ResNet) y se ha modificado para incluir módulos de atención y conexiones de salto (skip connections) para mejorar su rendimiento. Los bloques residuales permiten que el modelo sea muy profundo sin sufrir problemas de gradiente, mientras que los módulos de atención mejoran la capacidad del modelo para enfocarse en características importantes de la imagen como se muestra en la figura~\ref{fig:arquitectura}. Las conexiones de salto permiten que el modelo utilice información de diferentes niveles de resolución para mejorar la calidad de las imágenes generadas. Además, se realizan experimentos ablativos para analizar el impacto de cada uno de estos componentes en el rendimiento general del modelo, y se encuentra que las conexiones de salto son especialmente importantes para lograr un buen rendimiento. En general, la arquitectura propuesta logra resultados estatales del arte en varias tareas de procesamiento de imágenes, incluyendo denoising, super-resolución y mejora de imágenes.
+
 
 \section{Método propuesto}
-La restauración y mejora de imágenes es un problema importante en muchas aplicaciones prácticas, como la fotografía digital, la medicina y la vigilancia por video \cite{zhang2017beyond}. En este articulo, se presenta una nueva técnica basada en redes neuronales convolucionales (CNN) para abordar este problema, en la figura ~\ref{fig:ejem_Entrenamiento}. El método propuesto se llama MIRNet (Red Mejorada de Restauración de Imágenes) y utiliza bloques residuales de múltiples escalas para mantener las características de alta resolución a lo largo de la jerarquía de la red \cite{tian2020learning}.
+La restauración y mejora de imágenes es un problema importante en muchas aplicaciones prácticas, como la fotografía digital, la medicina y la vigilancia por video \cite{zhang2017beyond}. En este articulo, se presenta una nueva técnica basada en redes neuronales convolucionales (CNN) para abordar este problema, en la figura ~\ref{fig:ejem_Entrenamiento}. El método propuesto se llama MIRNet (Red Mejorada de Restauración de Imágenes) y utiliza bloques residuales de múltiples escalas para mantener las características de alta resolución a lo largo de la jerarquía de la red \cite{tian2020learning}. Durante el entrenamiento, el modelo se ajusta a los datos de entrenamiento para minimizar la función de pérdida. A medida que el modelo se entrena, es probable que mejore su capacidad para reconstruir imágenes de alta calidad y, por lo tanto, aumente su PSNR en el conjunto de entrenamiento.
 
+Durante el entrenamiento, el modelo se ajusta a los datos de entrenamiento para minimizar la función de pérdida. A medida que el modelo se entrena, es probable que mejore su capacidad para reconstruir imágenes de alta calidad y, por lo tanto, aumente su PSNR en el conjunto de entrenamiento. Sin embargo, es importante asegurarse de que el modelo no esté sobreajustando los datos de entrenamiento y pueda generalizar bien a nuevas imágenes. Por lo tanto, también es importante monitorear la evolución del PSNR en un conjunto de validación separado durante el entrenamiento. En la figura  ~\ref{fig:ll_train_losses_ep} se refiere a la evolución de la relación señal-ruido pico (PSNR) en el conjunto de entrenamiento y validación a medida que el modelo se entrena durante varias épocas.
+
+En general, esperamos ver una mejora gradual en el PSNR tanto en el conjunto de entrenamiento como en el conjunto de validación a medida que aumentan las épocas. Sin embargo, si vemos una brecha significativa entre los valores del PSNR en los conjuntos de entrenamiento y validación (es decir, si el modelo está sobreajustando), puede ser necesario ajustar los hiperparámetros o utilizar técnicas adicionales para regularizar el modelo.
 
 La clave del éxito del MIRNet es su capacidad para separar el contenido no deseado degradado del verdadero contenido espacialmente detallado. Esto se logra mediante el uso de grandes contextos que amplían el campo receptivo. Sin embargo, esto puede resultar en una pérdida de detalles espaciales precisos. Para abordar este problema, los autores proponen una nueva técnica que mantiene las características originales de alta resolución a lo largo de la jerarquía de la red \cite{tian2020learning}.
 
@@ -121,7 +133,7 @@ Los experimentos realizados en este articulo demuestran que el MIRNet supera a o
 \begin{figure}[!h]
     \centering
     \includegraphics*[width=.5\textwidth]{ll-train-losses-ep}
-    \caption{"Train and validation PSNR over epochs" se refiere a la evolución de la relación señal-ruido pico (PSNR) en el conjunto de entrenamiento y validación a medida que el modelo se entrena durante varias épocas.}
+    \caption{"Train and validation PSNR over epochs".}
     \label{fig:ll_train_losses_ep}
 \end{figure}
 
@@ -140,7 +152,7 @@ Los experimentos realizados en este articulo demuestran que el MIRNet supera a o
 \section{EXPERIMENTO}
 
 Los detalles del entrenamiento y evaluación del modelo MIRNet para tres tareas de procesamiento de imágenes de bajo nivel: eliminación de ruido, superresolución e imagen mejorada. Para cada tarea, utilizaron cinco conjuntos de datos reales diferentes y compararon el rendimiento de MIRNet con otros métodos del estado del arte. Considerar algunas posibles limitaciones del experimento se podrían incluir:
- 
+
 \begin{itemize}
   \item Tamaño del conjunto de datos: Si bien utilizamos un conjunto de datos amplio y diverso para entrenar nuestro modelo, es posible que no haya sido lo suficientemente grande o representativo como para capturar todas las variaciones posibles en las imágenes.
   \item Sesgo del conjunto de datos: Es posible que el conjunto de datos utilizado para entrenar nuestro modelo tenga algún sesgo inherente, lo que podría afectar su capacidad para generalizar a nuevas imágenes.
