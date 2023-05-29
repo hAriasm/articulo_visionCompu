@@ -23,6 +23,8 @@
 % ONLY FOR \footnote in table/tabular
 %
 \usepackage{pdfpages,multirow,ragged2e} %
+\usepackage[spanish]{babel}
+
 %
 % CHANGE SEQUENCE OF GRAPHICS EXTENSION TO BE EMBEDDED
 % ----------------------------------------------------
@@ -47,7 +49,7 @@
  {}                                      % input encoding is utf8 by default
  {\usepackage[utf8]{inputenc}}           % switch to utf8
 
-\usepackage[USenglish]{babel}
+\usepackage[spanish]{babel}
 %\usepackage[spanish]{babel}
 \newenvironment{keywords}
 {\par\small\textbf{Keywords}}
@@ -91,28 +93,23 @@ Image denoising, super-resolution, and image enhancement
 
 La restauración de imágenes es una tarea importante en vigilancia, fotografía computacional, imágenes médicas y teledetección. Recientemente, las redes neuronales convolucionales (CNN) han logrado mejoras dramáticas sobre los enfoques convencionales. Este artículo presenta una arquitectura novedosa con los objetivos colectivos de mantener representaciones espacialmente precisas de alta resolución y recibir información contextual sólida de las representaciones de baja resolución. El núcleo del enfoque es un bloque residual multiescala que contiene varios elementos clave: flujos paralelos de convolución multiresolución, intercambio de información a través de los flujos multiresolución, mecanismos de atención espacial y de canales, y agregación de características multiescala basada en la atención. Extensos experimentos en conjuntos de datos de referencia de imágenes reales demuestran que MIRNet logra resultados de vanguardia para una variedad de tareas de procesamiento de imágenes.
 
-\begin{figure*}[!h]
-    \centering
-    \includegraphics*[width=.9\textwidth]{entrenamiento}
-    \caption{Ejemplo de ejecución del entrenamiento. La figura muestra las 50 épocas }
-    \label{fig:ejem_Entrenamiento}
-\end{figure*}
-
 \section{Trabajo Relacionados}
  los autores revisan los métodos más relevantes para el procesamiento de imágenes de bajo nivel, incluyendo la eliminación de ruido, la superresolución y la mejora de imagen. A continuación, se resumen algunos de los métodos mencionados:
+\begin{itemize}[label=-]
+    \item Para la eliminación de ruido, como los basados en transformaciones de coeficientes y promedio de píxeles vecinos \cite{zhang2017beyond}. Además, se han propuesto enfoques basados en redes neuronales convolucionales profundas para esta tarea, como DnCNN \cite{zhang2017beyond} y RED30 \cite{mao2019red30}. Estos métodos utilizan arquitecturas profundas para aprender a eliminar el ruido de las imágenes a partir del conjunto de entrenamiento y generar imágenes limpias a partir de nuevas imágenes o imágenes dañadas por el ruido. Los resultados experimentales muestran que estos métodos pueden superar a los métodos clásicos en términos tanto visuales como cuantitativos.
+    \item Para la superresolución, algunos de los métodos mencionados son bicubic interpolation, que es el método más comúnmente utilizado para generar imágenes de alta resolución a partir de imágenes de baja resolución, y enfoques basados en redes neuronales convolucionales profundas como VDSR \cite{vdsr}, DRCN \cite{kim2016deeply} y SRCNN \cite{dong2016image}. Estos métodos utilizan arquitecturas profundas para aprender a generar imágenes de alta resolución a partir del conjunto de entrenamiento y mejorar la calidad visual y cuantitativa de las imágenes generadas. Los resultados experimentales muestran que estos métodos pueden superar a los métodos clásicos como bicubic interpolation en términos tanto visuales como cuantitativos.
+    \item Para la mejora de imagen,  algunos de los métodos mencionados son MemNet \cite{tai2017memnet} y FFDNet \cite{zhang2018ffdnet}, que son enfoques basados en redes neuronales convolucionales profundas que procesan características a su resolución original y fusionan información contextual de múltiples ramas paralelas. Además, se menciona el conjunto de datos MIT-Adobe FiveK \cite{dabov2007image}, que contiene imágenes de diversas escenas interiores y exteriores capturadas con cámaras DSLR en diferentes condiciones de iluminación, y se han utilizado las imágenes mejoradas por expertos como referencia para evaluar el rendimiento de los algoritmos. Los resultados experimentales muestran que los métodos basados en redes neuronales convolucionales profundas pueden mejorar significativamente la calidad visual y cuantitativa de las imágenes en comparación con los métodos clásicos.
+\end{itemize}
 
-- Para la eliminación de ruido, como los basados en transformaciones de coeficientes y promedio de píxeles vecinos \cite{zhang2017beyond}. Además, se han propuesto enfoques basados en redes neuronales convolucionales profundas para esta tarea, como DnCNN \cite{zhang2017beyond} y RED30 \cite{mao2019red30}. Estos métodos utilizan arquitecturas profundas para aprender a eliminar el ruido de las imágenes a partir del conjunto de entrenamiento y generar imágenes limpias a partir de nuevas imágenes o imágenes dañadas por el ruido. Los resultados experimentales muestran que estos métodos pueden superar a los métodos clásicos en términos tanto visuales como cuantitativos.
-- Para la superresolución, algunos de los métodos mencionados son bicubic interpolation, que es el método más comúnmente utilizado para generar imágenes de alta resolución a partir de imágenes de baja resolución, y enfoques basados en redes neuronales convolucionales profundas como VDSR \cite{vdsr}, DRCN \cite{kim2016deeply} y SRCNN \cite{dong2016image}. Estos métodos utilizan arquitecturas profundas para aprender a generar imágenes de alta resolución a partir del conjunto de entrenamiento y mejorar la calidad visual y cuantitativa de las imágenes generadas. Los resultados experimentales muestran que estos métodos pueden superar a los métodos clásicos como bicubic interpolation en términos tanto visuales como cuantitativos.
-- Para la mejora de imagen,  algunos de los métodos mencionados son MemNet \cite{tai2017memnet} y FFDNet \cite{zhang2018ffdnet}, que son enfoques basados en redes neuronales convolucionales profundas que procesan características a su resolución original y fusionan información contextual de múltiples ramas paralelas. Además, se menciona el conjunto de datos MIT-Adobe FiveK \cite{dabov2007image}, que contiene imágenes de diversas escenas interiores y exteriores capturadas con cámaras DSLR en diferentes condiciones de iluminación, y se han utilizado las imágenes mejoradas por expertos como referencia para evaluar el rendimiento de los algoritmos. Los resultados experimentales muestran que los métodos basados en redes neuronales convolucionales profundas pueden mejorar significativamente la calidad visual y cuantitativa de las imágenes en comparación con los métodos clásicos.
 
 Los autores también destacan que muchos de estos métodos están diseñados para una tarea específica y no son fácilmente adaptables a otras tareas. Por lo tanto, proponen MIRNet como un modelo unificado que puede manejar múltiples tareas de procesamiento de imágenes de bajo nivel con un rendimiento estado del arte.
 
-\begin{figure}[!h]
+\begin{figure*}[!h]
     \centering
-    \includegraphics*[width=.5\textwidth]{arquitectura}
-    \caption{"Train and validation PSNR over epochs".}
+    \includegraphics[width=1\textwidth]{arquitectura}
+    \caption{Framework de la red propuesta MIRNet para la restauración y mejora de imágenes. MIRNet se basa en un diseño residual recursivo. En el corazón de MIRNet está el bloque residual multi-escala (MRB), cuya rama principal está dedicada a mantener representaciones de alta resolución y características contextualizadas. Además, utiliza la fusión selectiva de características del núcleo (SKFF) para intercambiar información entre flujos paralelos y consolidar características de alta y baja resolución.}
     \label{fig:arquitectura}
-\end{figure}
+\end{figure*}
 Se describe la arquitectura utilizada en el modelo propuesto. El modelo utiliza una arquitectura de red neuronal profunda basada en bloques residuales (ResNet) y se ha modificado para incluir módulos de atención y conexiones de salto (skip connections) para mejorar su rendimiento. Los bloques residuales permiten que el modelo sea muy profundo sin sufrir problemas de gradiente, mientras que los módulos de atención mejoran la capacidad del modelo para enfocarse en características importantes de la imagen como se muestra en la figura~\ref{fig:arquitectura}. Las conexiones de salto permiten que el modelo utilice información de diferentes niveles de resolución para mejorar la calidad de las imágenes generadas. Además, se realizan experimentos ablativos para analizar el impacto de cada uno de estos componentes en el rendimiento general del modelo, y se encuentra que las conexiones de salto son especialmente importantes para lograr un buen rendimiento. En general, la arquitectura propuesta logra resultados estatales del arte en varias tareas de procesamiento de imágenes, incluyendo denoising, super-resolución y mejora de imágenes.
 
 
@@ -133,7 +130,7 @@ Los experimentos realizados en este articulo demuestran que el MIRNet supera a o
 \begin{figure}[!h]
     \centering
     \includegraphics*[width=.5\textwidth]{ll-train-losses-ep}
-    \caption{"Train and validation PSNR over epochs".}
+    \caption{Framework de la red propuesta MIRNet para la restauración y mejora de imágenes. MIRNet se basa en un diseño residual recursivo. En el corazón de MIRNet está el bloque residual multi-escala (MRB), cuya rama principal está dedicada a mantener representaciones de alta resolución y características contextualizadas. Además, utiliza la fusión selectiva de características del núcleo (SKFF) para intercambiar información entre flujos paralelos y consolidar características de alta y baja resolución.}
     \label{fig:ll_train_losses_ep}
 \end{figure}
 
@@ -150,6 +147,14 @@ Los experimentos realizados en este articulo demuestran que el MIRNet supera a o
 \end{figure}
 
 \section{EXPERIMENTO}
+
+
+\begin{figure*}[!h]
+    \centering
+    \includegraphics*[width=.9\textwidth]{entrenamiento}
+    \caption{Ejemplo de ejecución del entrenamiento. La figura muestra las 50 épocas }
+    \label{fig:ejem_Entrenamiento}
+\end{figure*}
 
 Los detalles del entrenamiento y evaluación del modelo MIRNet para tres tareas de procesamiento de imágenes de bajo nivel: eliminación de ruido, superresolución e imagen mejorada. Para cada tarea, utilizaron cinco conjuntos de datos reales diferentes y compararon el rendimiento de MIRNet con otros métodos del estado del arte. Considerar algunas posibles limitaciones del experimento se podrían incluir:
 
