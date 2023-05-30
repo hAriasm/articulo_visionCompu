@@ -242,19 +242,23 @@ Es importante tener en cuenta que el tiempo de ejecución del método dependerá
    \label{tab:agregacion}
 \end{table}
 
-\begin{table}[hbt]
+\begin{table*}[hbt]
    \centering
    \caption{Estudio de ablación en diferentes diseños de BMR. Las filas indican la cantidad de flujos de resolución paralelos y las columnas representan la cantidad de columnas que contienen DAU.}
-    \begin{tabular}{cccccccccc} 
+    \begin{tabular}{lccccccccc} 
+        \toprule
         &&Rows = 1&&&Rows = 2&&&Rows = 3&\\
         &Cols = 1 &Cols = 2 &Cols = 3 &Cols = 1 &Cols = 2 &Cols = 3 &Cols = 1 &Cols = 2 &Cols = 3\\
+        \midrule
         PSNR &29.92 &30.11 &30.17 &30.15 &30.83 &30.92 &30.24 &31.16 &31.18\\
-        \hline
+        \bottomrule
     \end{tabular}
    \label{tab:ablation}
-\end{table}
+\end{table*}
 
 Estudiamos el impacto de cada uno de nuestros componentes arquitectónicos y opciones de diseño en el desempeño final. La sección de estudios de ablación incluye varias tablas que resumen los resultados de los experimentos realizados. El cuadro ~\ref{tab:impacto} muestra el impacto de cada componente individual del modelo MRB en la tarea de superresolución. Los resultados indican que las conexiones "skip" son el componente más importante para el rendimiento, ya que su eliminación causa la mayor disminución en la PSNR. El cuadro ~\ref{tab:agregacion} compara el método propuesto SKFF con otros métodos de agregación de características y muestra que SKFF utiliza menos parámetros pero produce mejores resultados. Finalmente, el cuadro ~\ref{tab:ablation} presenta un estudio de ablación sobre diferentes diseños de MRB, donde se varía el número de corrientes paralelas y columnas que contienen DAUs. Los resultados muestran que aumentar el número de corrientes paralelas y columnas puede mejorar el rendimiento del modelo en la tarea de superresolución. En general, estas tablas proporcionan información valiosa sobre cómo cada componente del modelo contribuye al rendimiento general y pueden ayudar a guiar futuras mejoras en la arquitectura del modelo.
+
+
 \section{CONCLUSION}
 
 En este estudio, se realizó una revisión exhaustiva de los métodos de aprendizaje profundo para la eliminación de ruido en imágenes. Se discutieron los enfoques más populares y se compararon sus fortalezas y debilidades.
