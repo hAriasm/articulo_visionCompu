@@ -91,8 +91,21 @@ Image denoising, super-resolution, and image enhancement
 
 \section{Introducción}
 
-La restauración de imágenes es una tarea importante en vigilancia, fotografía computacional, imágenes médicas y teledetección. Recientemente, las redes neuronales convolucionales (CNN) han logrado mejoras dramáticas sobre los enfoques convencionales. Este artículo presenta una arquitectura novedosa con los objetivos colectivos de mantener representaciones espacialmente precisas de alta resolución y recibir información contextual sólida de las representaciones de baja resolución. El núcleo del enfoque es un bloque residual multiescala que contiene varios elementos clave: flujos paralelos de convolución multiresolución, intercambio de información a través de los flujos multiresolución, mecanismos de atención espacial y de canales, y agregación de características multiescala basada en la atención. Extensos experimentos en conjuntos de datos de referencia de imágenes reales demuestran que MIRNet logra resultados de vanguardia para una variedad de tareas de procesamiento de imágenes.
+La restauración de imágenes es una tarea desafiante debido a la presencia de degradaciones en las imágenes adquiridas desde varios dispositivos. Las cámaras con capacidades limitadas, como las cámaras de los teléfonos inteligentes, a menudo producen imágenes ruidosas y de bajo contraste. Además, las condiciones de iluminación inadecuadas pueden dar como resultado imágenes demasiado oscuras o demasiado brillantes. El objetivo de la restauración de imágenes es recuperar la imagen limpia original de sus medidas corruptas, lo cual es un problema inverso mal planteado con múltiples soluciones posibles.
 
+Los modelos de aprendizaje profundo han logrado avances significativos en la restauración y mejora de imágenes mediante el aprendizaje de antecedentes sólidos de conjuntos de datos a gran escala. Las redes neuronales convolucionales (CNN) existentes para la restauración de imágenes suelen seguir una arquitectura de codificador-decodificador o un enfoque de procesamiento de características de alta resolución (escala única). Los modelos de codificador-decodificador reducen progresivamente la resolución espacial de la imagen de entrada y luego la vuelven a mapear a la resolución original. Si bien estos modelos capturan un contexto amplio, a menudo pierden detalles espaciales finos, lo que dificulta su recuperación. Por otro lado, las redes de alta resolución conservan detalles espacialmente precisos pero tienen una capacidad limitada para codificar información contextual debido a su pequeño campo receptivo.
+
+Para abordar estos desafíos, los autores proponen un nuevo enfoque multiescala llamado MIRNet. Este enfoque mantiene características de alta resolución en toda la jerarquía de la red, lo que minimiza la pérdida de detalles espaciales precisos. Emplea flujos de convolución paralelos para capturar contexto de múltiples escalas, lo que complementa la rama principal de alta resolución y proporciona representaciones de características más precisas y enriquecidas contextualmente. A diferencia de los enfoques multiescala existentes que procesan cada escala de forma independiente e intercambian información solo de arriba hacia abajo, MIRNet fusiona información en todas las escalas en cada nivel de resolución, lo que permite el intercambio de información de arriba hacia abajo y de abajo hacia arriba. Se utiliza un mecanismo de fusión de kernel selectivo para seleccionar dinámicamente kernels útiles de cada representación de rama, conservando sus características complementarias distintivas.
+
+Nuestras principales contribuciones a este articulo incluyen lo siguiente:
+
+\begin{itemize}[label=-]
+  \item Un nuevo modelo de extracción de características que obtiene un conjunto complementario de características a través de múltiples escalas espaciales mientras mantiene las características originales de alta resolución para preservar detalles espaciales precisos.
+  \item Un mecanismo repetido regularmente para el intercambio de información, donde las características a través de las ramas de resolución múltiple se fusionan progresivamente para mejorar el aprendizaje de la representación.
+  \item Un nuevo enfoque para fusionar características de múltiples escalas utilizando una red de kernel selectiva que combina dinámicamente campos receptivos variables y conserva fielmente la información de la característica original en cada resolución espacial.
+  \item Un diseño residual recursivo que descompone progresivamente la señal de entrada para simplificar el proceso de aprendizaje general y permite la construcción de redes muy profundas.
+  \item Se realizan experimentos completos en cinco conjuntos de datos de referencia de imágenes reales para diferentes tareas de procesamiento de imágenes, incluida la eliminación de ruido de imágenes, la superresolución y la mejora de imágenes. Nuestro método logra resultados de última generación en los cinco conjuntos de datos. Además, evaluamos exhaustivamente nuestro enfoque para los desafíos prácticos, como la capacidad de generalización entre conjuntos de datos.
+\end{itemize}
 \section{Trabajo Relacionados}
  los autores revisan los métodos más relevantes para el procesamiento de imágenes de bajo nivel, incluyendo la eliminación de ruido, la superresolución y la mejora de imagen. A continuación, se resumen algunos de los métodos mencionados:
 \begin{itemize}[label=-]
@@ -115,7 +128,7 @@ Se describe la arquitectura utilizada en el modelo propuesto. El modelo utiliza 
 \section{Método propuesto}
 La restauración y mejora de imágenes es un problema importante en muchas aplicaciones prácticas, como la fotografía digital, la medicina y la vigilancia por video \cite{zhang2017beyond}. En este articulo, se presenta una nueva técnica basada en redes neuronales convolucionales (CNN) para abordar este problema, en la figura ~\ref{fig:ejem_Entrenamiento}. El método propuesto se llama MIRNet (Red Mejorada de Restauración de Imágenes) y utiliza bloques residuales de múltiples escalas para mantener las características de alta resolución a lo largo de la jerarquía de la red \cite{tian2020learning}.
 
-\textbf{Flujo general.} Dada una imagen $\mathbf{I} \in \mathbb{R}^{H \times W \times 3}$ la red primero aplica una capa convolucional para extraer características de bajo nivel $\mathbf{X}_{\textbf{0}} \in \mathbb{R}^{H \times W \times 3}$. A continuación, el mapa de features $\mathbf{X}_{\textbf{0}}$ pasa a través de un número $N$ de grupos recursivos residuales (RRGs), generando características profundas $\mathbf{X}_{\textbf{d}} \in \mathbb{R}^{H \times W \times 3}$. Nótese que cada RRG contiene algunos bloques residuales multi-escala. Luego de eso, se aplica una capa convolucional para profundizar características $\mathbf{X}_{\textbf{d}}$ y obtener una imagen residual $\mathbf{R} \in \mathbb{R}^{H \times W \times 3}$. Finalmente, la imagen restaurada se obtiene como $\mathbf{\hat{I}} = \mathbf{I} + \mathbf{R}$. La red propuesta se optimiza usando el método de pérdida de Charbonnier: 
+\textbf{Flujo general.} Dada una imagen $\mathbf{I} \in \mathbb{R}^{H \times W \times 3}$ la red primero aplica una capa convolucional para extraer características de bajo nivel $\mathbf{X}_{\textbf{0}} \in \mathbb{R}^{H \times W \times 3}$. A continuación, el mapa de features $\mathbf{X}_{\textbf{0}}$ pasa a través de un número $N$ de grupos recursivos residuales (RRGs), generando características profundas $\mathbf{X}_{\textbf{d}} \in \mathbb{R}^{H \times W \times 3}$. Nótese que cada RRG contiene algunos bloques residuales multi-escala. Luego de eso, se aplica una capa convolucional para profundizar características $\mathbf{X}_{\textbf{d}}$ y obtener una imagen residual $\mathbf{R} \in \mathbb{R}^{H \times W \times 3}$. Finalmente, la imagen restaurada se obtiene como $\mathbf{\hat{I}} = \mathbf{I} + \mathbf{R}$. La red propuesta se optimiza usando el método de pérdida de Charbonnier:
 \begin{equation*}
 \mathcal{L}(\mathbf{\hat{I}}, \mathbf{I^*}) = \sqrt{\lVert\mathbf{\hat{I}} - \mathbf{I^*}\rVert^2 + \varepsilon^2}
 \end{equation*}
@@ -159,7 +172,7 @@ Los experimentos realizados en este articulo demuestran que el MIRNet supera a o
 
 Los detalles del entrenamiento y evaluación del modelo MIRNet para tres tareas de procesamiento de imágenes de bajo nivel: eliminación de ruido, superresolución e imagen mejorada. Para cada tarea, utilizaron cinco conjuntos de datos reales diferentes y compararon el rendimiento de MIRNet con otros métodos del estado del arte. Considerar algunas posibles limitaciones del experimento se podrían incluir:
 
-\begin{itemize}
+\begin{itemize}[label=-]
   \item Tamaño del conjunto de datos: Si bien utilizamos un conjunto de datos amplio y diverso para entrenar nuestro modelo, es posible que no haya sido lo suficientemente grande o representativo como para capturar todas las variaciones posibles en las imágenes.
   \item Sesgo del conjunto de datos: Es posible que el conjunto de datos utilizado para entrenar nuestro modelo tenga algún sesgo inherente, lo que podría afectar su capacidad para generalizar a nuevas imágenes.
   \item Hiperparámetros: La elección de los hiperparámetros (como la tasa de aprendizaje y el tamaño del lote) puede tener un impacto significativo en el rendimiento del modelo. Es posible que no hayamos encontrado los mejores valores para estos hiperparámetros en nuestro experimento.
@@ -194,7 +207,54 @@ Es importante tener en cuenta que el tiempo de ejecución del método dependerá
 %   \caption{Layout of papers.}
 %   \label{fig:paper_layout}
 %\end{figure}
+\section{ESTUDIOS DE ABLACIÓN}
+ 
+\begin{table}[!hbt]
+    \scriptsize
+   \centering
+   \caption{Impacto de los componentes individuales de MRB.}
+   \begin{tabular}{lccccc}
+ 
+       \midrule
+           Skip connections         &                        &\checkmark&\checkmark&\checkmark& \checkmark         \\ %[3pt]
+           DAU                       &   \checkmark           &          &\checkmark&&   \checkmark       \\ %[3pt]
+           SKFF intermediate        &    \checkmark          &\checkmark&           &&   \checkmark      \\ %[3pt]
+           SKFF nal                &    \checkmark          &\checkmark&\checkmark&\checkmark&  \checkmark        \\
+       \bottomrule
+       PSNR (in dB) &27.91 &30.97 &30.78 &30.57 &31.16 \\
+       \bottomrule
 
+   \end{tabular}
+   \label{tab:impacto}
+\end{table}
+
+\begin{table}[!hbt]
+   \centering
+   \caption{Agregación de características. Nuestro SKFF usa 6 veces menos parámetros que concat, pero genera mejores resultados.}
+   \begin{tabular}{lccccc}
+        \toprule
+            Metodo              &Sum    &Concat     &SKFF   \\
+        \midrule
+           PSNR (in dB)         &30.76   &30.89     &31.16      \\  
+           Parametros           &0       &12,288    &2,049        \\
+       \bottomrule
+   \end{tabular}
+   \label{tab:agregacion}
+\end{table}
+
+\begin{table}[hbt]
+   \centering
+   \caption{Estudio de ablación en diferentes diseños de BMR. Las filas indican la cantidad de flujos de resolución paralelos y las columnas representan la cantidad de columnas que contienen DAU.}
+    \begin{tabular}{cccccccccc} 
+        &&Rows = 1&&&Rows = 2&&&Rows = 3&\\
+        &Cols = 1 &Cols = 2 &Cols = 3 &Cols = 1 &Cols = 2 &Cols = 3 &Cols = 1 &Cols = 2 &Cols = 3\\
+        PSNR &29.92 &30.11 &30.17 &30.15 &30.83 &30.92 &30.24 &31.16 &31.18\\
+        \hline
+    \end{tabular}
+   \label{tab:ablation}
+\end{table}
+
+Estudiamos el impacto de cada uno de nuestros componentes arquitectónicos y opciones de diseño en el desempeño final. La sección de estudios de ablación incluye varias tablas que resumen los resultados de los experimentos realizados. El cuadro ~\ref{tab:impacto} muestra el impacto de cada componente individual del modelo MRB en la tarea de superresolución. Los resultados indican que las conexiones "skip" son el componente más importante para el rendimiento, ya que su eliminación causa la mayor disminución en la PSNR. El cuadro ~\ref{tab:agregacion} compara el método propuesto SKFF con otros métodos de agregación de características y muestra que SKFF utiliza menos parámetros pero produce mejores resultados. Finalmente, el cuadro ~\ref{tab:ablation} presenta un estudio de ablación sobre diferentes diseños de MRB, donde se varía el número de corrientes paralelas y columnas que contienen DAUs. Los resultados muestran que aumentar el número de corrientes paralelas y columnas puede mejorar el rendimiento del modelo en la tarea de superresolución. En general, estas tablas proporcionan información valiosa sobre cómo cada componente del modelo contribuye al rendimiento general y pueden ayudar a guiar futuras mejoras en la arquitectura del modelo.
 \section{CONCLUSION}
 
 En este estudio, se realizó una revisión exhaustiva de los métodos de aprendizaje profundo para la eliminación de ruido en imágenes. Se discutieron los enfoques más populares y se compararon sus fortalezas y debilidades.
